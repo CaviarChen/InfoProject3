@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, abort
 import json
 
 with open('config.json') as data_file:
@@ -21,6 +21,14 @@ def observation():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/api/<method>')
+def api(method):
+    if(method=='PivotTable'):
+        return 'test'
+
+    abort(404)
+    return ''
 
 
 if __name__ == '__main__':
