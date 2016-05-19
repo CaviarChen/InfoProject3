@@ -20,27 +20,27 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-md-4">
-            <select class="form-control">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+            <select id="s-filter-1" class="form-control">
+              <option value="0">ALL</option>
+              <option value="1">2</option>
+              <option value="2">3</option>
+              <option value="3">4</option>
+              <option value="4">5</option>
             </select>
           </div>
 
           <div class="col-md-4">
-            <select class="form-control">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+            <select id="s-filter-2" class="form-control" disabled>
+              <option value="0">=</option>
+              <option value="1">&gt</option>
+              <option value="2">&lt</option>
+              <option value="3">&lt&gt</option>
+              <option value="4">cotain</option>
             </select>
           </div>
 
           <div class="col-md-4">
-            <input type="text" class="form-control" aria-label="...">
+            <input id="i-filter-3" disabled type="text" class="form-control" aria-label="...">
           </div>
         </div>
 
@@ -97,12 +97,24 @@
         <h3 class="panel-title">Value</h3>
       </div>
       <div class="panel-body">
-
-            <select id="select_value" class="form-control">
+        <div class="row">
+          <div class="col-md-6">
+            <select id="s-value-t" class="form-control">
+              <option value="0">Sum of</option>
+              <option value="1">Count of</option>
+              <option value="2">Average of</option>
+              <option value="3">Maximum of</option>
+              <option value="4">Minimum of</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <select id="s-value" class="form-control">
               <option value="0">AAA</option>
               <option value="1">BBB</option>
               <option value="2">CCC</option>
             </select>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -117,6 +129,15 @@
 </div>
 <hr>
 
+<div class="row">
+    <div id="table_c" class="col-md-12">
+    </div>
+</div>
+
+
+
+
 <script src="static/js/pivot.js"></script>
+<script src="static/js/bootstrap-waitingfor.min.js"></script>
 
 {% endblock %}
