@@ -1,4 +1,4 @@
-Block ID,Property ID,Base property ID,Building name,Streetaddress,CLUE small area,Construction year,Refurbished year,Number of floors (above ground),Predominant space use,Accessibility type,Accessibility type description,Accessibility rating,Bicycle spaces,Has showers
+Block ID,Property ID,Base property ID,Building name,Street name,CLUE small area,Construction year,Refurbished year,Number of floors (above ground),Predominant space use,Accessibility type,Accessibility type description,Accessibility rating,Bicycle spaces,Has showers
 1,611393,611393,Northbank Place East Tower,FlindersStreet,Melbourne (CBD),2009,,11,Office,High level of accessibility,Main Entrance is at grade and has no steps or ramp,3,0,
 1,611394,611394,Northbank Place Central Tower,FlindersStreet,Melbourne (CBD),2009,,16,Residential Apartment,High level of accessibility,Main Entrance is at grade and has no steps or ramp,3,42,
 1,611395,611395,Northbank Place West Tower,FlindersStreet,Melbourne (CBD),2009,,18,Residential Apartment,High level of accessibility,Main Entrance is at grade and has no steps or ramp,3,0,

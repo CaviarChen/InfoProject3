@@ -1,4 +1,5 @@
-from flask import Flask, render_template, abort
+from flask import Flask, render_template, abort, request
+import handler
 import json
 
 with open('config.json') as data_file:
@@ -25,7 +26,7 @@ def about():
 @app.route('/api/<method>')
 def api(method):
     if(method=='PivotTable'):
-        return 'test'
+        return json.dumps(handler.PivotTable(request.args))
 
     abort(404)
     return ''
