@@ -1,4 +1,4 @@
-Block ID,Property ID,Base property ID,Building name,Streetaddress,CLUE small area,Construction year,Refurbished year,Number of floors (above ground),Predominant space use,Accessibility type,Accessibility type description,Accessibility rating,Bicycle spaces,Has showers
+Block ID,Property ID,Base property ID,Building name,Street name,CLUE small area,Construction year,Refurbished year,Number of floors (above ground),Predominant space use,Accessibility type,Accessibility type description,Accessibility rating,Bicycle spaces,Has showers
 260,103271,103271, Hollyford Apartments,ElizabethStreet,Carlton,2001,,3,Residential Apartment,Low level of accessibility,All entrances have steps,1,0,0
 255,101606,101606, Solo House,CardiganStreet,Carlton,1970,,2,Office,Low level of accessibility,All entrances have steps,1,0,0
 17,104027,104027,100 Flinders Street,FlindersStreet,Melbourne (CBD),1910,1988,6,Unoccupied - Unused,Low level of accessibility,All entrances have steps,1,0,1
