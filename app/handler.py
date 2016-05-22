@@ -1,38 +1,128 @@
-import csv
+import sqlite3
 
-def PivotTable(req_args):
+DBITEM = {0:"BID",
+          1:"PID",
+          2:"BPID",
+          3:"BName",
+          4:"SName",
+          5:"Area",
+          6:"CYear",
+          7:"RYear",
+          8:"Floors",
+          9:"Use",
+          10:"AType",
+          12:"ARating",
+          13:"Bicycle",
+          14:"Showers"}
 
+FILTER_OP = {0:"WHERE {0}=?",
+             1:"WHERE {0}>?",
+             2:"WHERE {0}>=?",
+             3:"WHERE {0}<?",
+             4:"WHERE {0}<=?",
+             5:"WHERE {0}<>?",
+             6:"WHERE instr({0},?) > 0"}
+
+    #-------------------------------------------------
+
+def PivotTable(req_args, db):
     # check args
+    global DBITEM
+    global FILTER_OP
+
     try:
-        filter1 = int(req_args['filter1'])
-        if filter1!=-1:
-            filter2 = int(req_args['filter2'])
-            filter3 = req_args['filter3']
-        row1 = int(req_args['row'])
-        col1 = int(req_args['col'])
+        filter_n = int(req_args['filter1'])
+        if filter_n!=-1:
+            sql_where = FILTER_OP[int(req_args['filter2'])].format(DBITEM[filter_n])
+            sql_par = req_args['filter3']  #this variable is unsafe
+        else:
+            sql_where = 'WHERE 0=?'
+            sql_par = 0
+
+        row1 = DBITEM[int(req_args['row'])]
+        col1 = DBITEM[int(req_args['col'])]
         val1 = int(req_args['val1'])
-        val2 = int(req_args['val2'])
+        val2 = DBITEM[int(req_args['val2'])]
     except:
         return {'code': -1, 'message': 'Wrong parameters'}
 
-    if row==col:
+    if row1==col1:
         return {'code': -1, 'message': 'Row and column can\'t be same'}
 
-    dataset = LoadDataset()
+    #-------------------------------------------------
 
+    cur = db.cursor()
+    rows = set()
+    cols = set()
 
-    print [col[0] for col in dataset]
+    # Parameter markers can't be used for colum names
+    # But it is safe because row1 col1 can't be else than DBITEM
+    for line in cur.execute("SELECT "+row1+" FROM dataset "+sql_where,(sql_par,)):
+        rows.add(line[0])
+    for line in cur.execute("SELECT "+col1+" FROM dataset "+sql_where,(sql_par,)):
+        cols.add(line[0])
 
-    return req_args
+    rows = list(rows)
+    cols = list(cols)
+    rows.sort()
+    cols.sort()
+    rows.append('Total')
+    cols.append('Total')
 
-def LoadDataset():
-    csvfile = open("./static/dataset.csv")
-    reader = csv.reader(csvfile)
+    print len(cols)
+    print len(rows)
 
-    dataset = []
-    for row in reader:
-        dataset.append(row)
+    table = [0 for item in range(len(cols)*len(rows))]
 
-    csvfile.close()
+    table_max = -float('inf')
+    table_min = float('inf')
 
-    return dataset
+    for i in range(len(cols)):
+        for j in range(len(rows)):
+
+            if (i==len(cols)-1):        #Total
+                sql_where_v = sql_where + " AND {0}=?".format(row1)
+                sql_par_v = (sql_par, rows[j])
+            else:
+                if (j==len(rows)-1):  #Total
+                    sql_where_v = sql_where + " AND {0}=?".format(col1)
+                    sql_par_v = (sql_par,cols[i])
+                else:                       #Normal
+                    sql_where_v = sql_where + " AND {0}=? AND {1}=?".format(row1, col1)
+                    sql_par_v = (sql_par, rows[j], cols[i])
+
+            table[i*len(rows)+j] = CalculateTable(cur, val1, val2, sql_where_v, sql_par_v)
+
+            if table[i*len(rows)+j]!='N/A':
+                if table_min>table[i*len(rows)+j]:
+                    table_min = table[i*len(rows)+j]
+                if table_max<table[i*len(rows)+j]:
+                    table_max = table[i*len(rows)+j]
+
+    print table_max
+    print table_min
+
+    for i in range(len(cols)*len(rows)):
+        if table[i]!='N/A':
+            table[i] = str(round(table[i],2)).rstrip('.0')
+
+    return {"code":1,"data":{"rows":rows,"cols":cols,"table":table}}
+
+        #-------------------------------------------------
+def CalculateTable(cur, val1, val2, sql_where, sql_par):
+    values = []
+    for line in cur.execute("SELECT "+val2+" FROM dataset "+sql_where, sql_par):
+        if line[0]!='': #skip empty data
+            values.append(line[0])
+    if len(values)==0:
+        return 'N/A'
+    if val1==0:
+        return sum(values)
+    if val1==1:
+        return float(sum(values))/len(values)
+    if val1==2:
+        return max(values)
+    if val1==3:
+        return min(values)
+
+    return 0

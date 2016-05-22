@@ -29,7 +29,26 @@ $('#btn-generate').on('click', function(event) {
       txt = '<div class="alert alert-danger" role="alert">'+data['message']+'</div>'
 
     } else {
-      txt = res;
+      txt = '<div class="panel panel-default"><div class="panel-heading">Table</div><div class="panel-body">';
+
+      txt += '<div class="table-responsive"><table class="table table-hover table-bordered">';
+
+      txt += '<tr>'
+      txt += '<td>#</td>'
+      for (var i = 0; i < data['data']['rows'].length; i++) {
+        txt += '<td>'+data['data']['rows'][i]+'</td>'
+      }
+      txt += '</tr>'
+
+      for (var j = 0; j < data['data']['cols'].length; j++) {
+        txt += '<tr>'
+        txt += '<td>'+data['data']['cols'][j]+'</td>'
+        for (var i = 0; i < data['data']['rows'].length; i++) {
+          txt += '<td>'+data['data']['table'][j*data['data']['rows'].length+i]+'</td>'
+        }
+        txt += '</tr>'
+      }
+      txt += '</table></div></div></div>';
 
     }
 
