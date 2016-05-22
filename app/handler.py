@@ -99,12 +99,17 @@ def PivotTable(req_args, db):
                 if table_max<table[i*len(rows)+j]:
                     table_max = table[i*len(rows)+j]
 
+    print table
+
     print table_max
     print table_min
 
     for i in range(len(cols)*len(rows)):
         if table[i]!='N/A':
-            table[i] = str(round(table[i],2)).rstrip('.0')
+            if table[i]==0:
+                table[i] = '0'
+            else:
+                table[i] = str(round(table[i],2)).rstrip('.0')
 
     return {"code":1,"data":{"rows":rows,"cols":cols,"table":table}}
 
