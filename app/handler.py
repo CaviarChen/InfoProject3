@@ -1,4 +1,5 @@
 import sqlite3
+import struct
 
 DBITEM = {0:"BID",
           1:"PID",
@@ -81,6 +82,8 @@ def PivotTable(req_args, db):
         for j in range(len(rows)):
 
             if (i==len(cols)-1):        #Total
+                if (j==len(rows)-1):
+                    break;
                 sql_where_v = sql_where + " AND {0}=?".format(row1)
                 sql_par_v = (sql_par, rows[j])
             else:
@@ -99,19 +102,20 @@ def PivotTable(req_args, db):
                 if table_max<table[i*len(rows)+j]:
                     table_max = table[i*len(rows)+j]
 
-    print table
+    if table_max==table_min:
+        table_max = table_min + 1
 
-    print table_max
-    print table_min
+    table_color = ['#F0F0F0' for item in range(len(cols)*len(rows))]
 
     for i in range(len(cols)*len(rows)):
         if table[i]!='N/A':
+            table_color[i] = HTMLColor(float((table[i]-table_min))/(table_max-table_min))
             if table[i]==0:
                 table[i] = '0'
             else:
                 table[i] = str(round(table[i],2)).rstrip('.0')
 
-    return {"code":1,"data":{"rows":rows,"cols":cols,"table":table}}
+    return {"code":1,"data":{"rows":rows,"cols":cols,"table":table,"color":table_color}}
 
         #-------------------------------------------------
 def CalculateTable(cur, val1, val2, sql_where, sql_par):
@@ -131,3 +135,18 @@ def CalculateTable(cur, val1, val2, sql_where, sql_par):
         return min(values)
 
     return 0
+
+def HTMLColor(percentage):
+    percentage = max([percentage,0])
+    percentage = min([percentage,1])
+
+    (low_r, low_g, low_b) = (255, 255, 255)
+    (high_r, high_g, high_b) = (252, 248, 227)
+
+    r = int(low_r + (high_r-low_r) * percentage)
+    g = int(low_g + (high_g-low_g) * percentage)
+    b = int(low_b + (high_b-low_b) * percentage)
+
+    print percentage
+
+    return '#'+struct.pack('BBB',*(r,g,b)).encode('hex')

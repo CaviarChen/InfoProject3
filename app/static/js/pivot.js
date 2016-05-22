@@ -44,7 +44,7 @@ $('#btn-generate').on('click', function(event) {
         txt += '<tr>'
         txt += '<td>'+data['data']['cols'][j]+'</td>'
         for (var i = 0; i < data['data']['rows'].length; i++) {
-          txt += '<td>'+data['data']['table'][j*data['data']['rows'].length+i]+'</td>'
+          txt += '<td style="background-color: '+data['data']['color'][j*data['data']['rows'].length+i]+'">'+data['data']['table'][j*data['data']['rows'].length+i]+'</td>'
         }
         txt += '</tr>'
       }
