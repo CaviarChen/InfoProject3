@@ -24,33 +24,22 @@ FILTER_OP = {0:"WHERE {0}=?",
              5:"WHERE {0}<>?",
              6:"WHERE instr({0},?) > 0"}
 
+FILTER1_RANGE = (-1,0,1,2,3,4,5,6,7,8,9,10,12,13,14)
+FILTER2_RANGE = range(0,6+1)
+ROW_COL_RANGE = (0,3,4,5,6,7,8,9,10,12,13,14)
+VALUE1_RANGE = range(0,3+1)
+VALUE2_RANGE = (6,7,8,12,13,14)
+
     #-------------------------------------------------
 
 def PivotTable(req_args, db):
     # check args
-    global DBITEM
-    global FILTER_OP
-
-    try:
-        filter_n = int(req_args['filter1'])
-        if filter_n!=-1:
-            sql_where = FILTER_OP[int(req_args['filter2'])].format(DBITEM[filter_n])
-            sql_par = req_args['filter3']  #this variable is unsafe
-        else:
-            sql_where = 'WHERE 0=?'
-            sql_par = 0
-
-        row1 = DBITEM[int(req_args['row'])]
-        col1 = DBITEM[int(req_args['col'])]
-        val1 = int(req_args['val1'])
-        val2 = DBITEM[int(req_args['val2'])]
-    except:
+    res = ArgsCheck(req_args)
+    if res==-1:
         return {'code': -1, 'message': 'Wrong parameters'}
-
-    if row1==col1:
+    if res==-2:
         return {'code': -1, 'message': 'Row and column can\'t be same'}
-
-    #-------------------------------------------------
+    (sql_where, sql_par, row1, col1, val1, val2) = res
 
     cur = db.cursor()
     rows = set()
@@ -67,7 +56,7 @@ def PivotTable(req_args, db):
     cols = list(cols)
 
     if not((len(cols) in range(1,180+1))and(len(rows) in range(1,180+1))):
-        return {'code': -1, 'message': 'Data range is too large or too small,\
+        return {'code': -3, 'message': 'Data range is too large or too small,\
          please change the parameter. '+"(row:{0} colum:{1})".format(len(rows),len(cols)) }
 
     rows.sort()
@@ -82,7 +71,6 @@ def PivotTable(req_args, db):
 
     for i in range(len(cols)):
         for j in range(len(rows)):
-
             if (i==len(cols)-1):        #Total
                 if (j==len(rows)-1):
                     break;
@@ -121,6 +109,46 @@ def PivotTable(req_args, db):
     return {"code":1,"data":{"rows":rows,"cols":cols,"table":table,"color":table_color}}
 
         #-------------------------------------------------
+
+def ArgsCheck(args):
+    global DBITEM, FILTER_OP, FILTER1_RANGE, FILTER2_RANGE, ROW_COL_RANGE, VALUE1_RANGE, VALUE2_RANGE
+
+    try:
+        filter_n = int(args['filter1'])
+        if not(filter_n in FILTER1_RANGE):
+            return -1
+
+        if filter_n!=-1:
+            if not(int(args['filter2']) in FILTER2_RANGE):
+                return -1
+            sql_where = FILTER_OP[int(args['filter2'])].format(DBITEM[filter_n])
+            sql_par = args['filter3']  #this variable is unsafe
+        else:
+            sql_where = 'WHERE 0=?'
+            sql_par = 0
+
+        if not((int(args['row']) in ROW_COL_RANGE) or \
+        (int(args['col']) in ROW_COL_RANGE)):
+            return -1
+
+        if not((int(args['val1']) in VALUE1_RANGE) or \
+        (int(args['val2']) in VALUE2_RANGE)):
+            return -1
+
+        row1 = DBITEM[int(args['row'])]
+        col1 = DBITEM[int(args['col'])]
+        val1 = int(args['val1'])
+        val2 = DBITEM[int(args['val2'])]
+
+    except:
+        return -1
+
+    if row1==col1:
+        return -2
+
+    return (sql_where, sql_par, row1, col1, val1, val2)
+
+
 
 def CalculateTable(cur, val1, val2, sql_where, sql_par):
     values = []
