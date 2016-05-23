@@ -110,10 +110,9 @@ def PivotTable(req_args, db):
     for i in range(len(cols)*len(rows)):
         if table[i]!='N/A':
             table_color[i] = HTMLColor(float((table[i]-table_min))/(table_max-table_min))
-            if table[i]==0:
-                table[i] = '0'
-            else:
-                table[i] = str(round(table[i],2)).rstrip('.0')
+            table[i] = str(round(table[i],2))
+            if table[i][-2:] == '.0' :  # remove .0
+                table[i] = table[i][:-2]
 
     return {"code":1,"data":{"rows":rows,"cols":cols,"table":table,"color":table_color}}
 
@@ -146,7 +145,5 @@ def HTMLColor(percentage):
     r = int(low_r + (high_r-low_r) * percentage)
     g = int(low_g + (high_g-low_g) * percentage)
     b = int(low_b + (high_b-low_b) * percentage)
-
-    print percentage
 
     return '#'+struct.pack('BBB',*(r,g,b)).encode('hex')
