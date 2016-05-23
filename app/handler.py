@@ -65,13 +65,15 @@ def PivotTable(req_args, db):
 
     rows = list(rows)
     cols = list(cols)
+
+    if not((len(cols) in range(1,180+1))and(len(rows) in range(1,180+1))):
+        return {'code': -1, 'message': 'Data range is too large or too small,\
+         please change the parameter. '+"(row:{0} colum:{1})".format(len(rows),len(cols)) }
+
     rows.sort()
     cols.sort()
     rows.append('Total')
     cols.append('Total')
-
-    print len(cols)
-    print len(rows)
 
     table = [0 for item in range(len(cols)*len(rows))]
 
@@ -114,9 +116,12 @@ def PivotTable(req_args, db):
             if table[i][-2:] == '.0' :  # remove .0
                 table[i] = table[i][:-2]
 
+    table[len(table)-1] = ''  # between total
+
     return {"code":1,"data":{"rows":rows,"cols":cols,"table":table,"color":table_color}}
 
         #-------------------------------------------------
+
 def CalculateTable(cur, val1, val2, sql_where, sql_par):
     values = []
     for line in cur.execute("SELECT "+val2+" FROM dataset "+sql_where, sql_par):

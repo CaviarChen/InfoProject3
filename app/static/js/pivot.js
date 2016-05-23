@@ -4,11 +4,7 @@ $('#s-filter-1').on('change', function() {
   $('#i-filter-3').attr('disabled', bool);
 });
 
-$('#btn-generate').on('click', function(event) {
-
-  waitingDialog.show('Loading');
-  $('#table_c').text('');
-
+function create_args() {
   var args={}; // restful api args
   args['filter1'] = $('#s-filter-1 :selected').val();
   if (args['filter1']!="-1") {
@@ -19,6 +15,16 @@ $('#btn-generate').on('click', function(event) {
   args['col'] = $('#s-col :selected').val();
   args['val1'] = $('#s-val-1 :selected').val();
   args['val2'] = $('#s-val-2 :selected').val();
+
+  return args;
+}
+
+$('#btn-generate').on('click', function(event) {
+
+  waitingDialog.show('Loading');
+  $('#table_c').text('');
+
+  var args=create_args(); // restful api args
 
   // get request
   $.get('api/PivotTable', args)
@@ -55,4 +61,10 @@ $('#btn-generate').on('click', function(event) {
     $('#table_c').append(txt);
     waitingDialog.hide();
   });
+});
+
+$('#btn-json').on('click', function(event) {
+  var args=create_args(); // restful api args
+  window.open('/api/PivotTable?'+$.param(args),'_blank');
+
 });
