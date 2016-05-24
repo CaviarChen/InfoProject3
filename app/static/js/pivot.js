@@ -1,10 +1,30 @@
+$(document).ready(function() {
+  if(window.location.hash!='') {
+    window.onhashchange();
+  }
+});
+
 $('#s-filter-1').on('change', function() {
   bool = ($('#s-filter-1 :selected').val()=="-1");
   $('#s-filter-2').attr('disabled', bool);
   $('#i-filter-3').attr('disabled', bool);
 });
 
-function create_args() {
+function set_args(args) {
+  $('#s-filter-1 option[value="'+args['filter1']+'"]').prop('selected', true);
+  if (args['filter1']!="-1") {
+    $('#s-filter-2 option[value="'+args['filter2']+'"]').prop('selected', true);
+    $('#i-filter-3').val(args['filter3']);
+  }
+  $('#s-row option[value="'+args['row']+'"]').prop('selected', true);
+  $('#s-col option[value="'+args['col']+'"]').prop('selected', true);
+  $('#s-val-1 option[value="'+args['val1']+'"]').prop('selected', true);
+  $('#s-val-1 option[value="'+args['val2']+'"]').prop('selected', true);
+
+  $("#s-filter-1").trigger("change");
+}
+
+function get_args() {
   var args={}; // restful api args
   args['filter1'] = $('#s-filter-1 :selected').val();
   if (args['filter1']!="-1") {
@@ -20,18 +40,28 @@ function create_args() {
 }
 
 $('#btn-generate').on('click', function(event) {
+  var args=get_args(); // restful api args
+  window.location = '#q=' + JSON.stringify(args);
+});
 
+$('#btn-json').on('click', function(event) {
+  var args=get_args(); // restful api args
+  window.open('/api/PivotTable?'+$.param(args),'_blank');
+
+});
+
+window.onhashchange = function(){
   waitingDialog.show('Loading');
   $('#table_c').text('');
 
-  var args=create_args(); // restful api args
+  args = JSON.parse(window.location.hash.slice(3));
+  set_args(args);
 
-  // get request
   $.get('api/PivotTable', args)
   .done(function(res) {
     var data = JSON.parse(res);
     var txt;
-    if (data['code']==-1) {
+    if (data['code']<0) {
       txt = '<div class="alert alert-danger" role="alert">'+data['message']+'</div>'
 
     } else {
@@ -61,10 +91,5 @@ $('#btn-generate').on('click', function(event) {
     $('#table_c').append(txt);
     waitingDialog.hide();
   });
-});
 
-$('#btn-json').on('click', function(event) {
-  var args=create_args(); // restful api args
-  window.open('/api/PivotTable?'+$.param(args),'_blank');
-
-});
+}
