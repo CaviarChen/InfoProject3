@@ -1,6 +1,9 @@
 # InfoProject3
-[![Python 2.6|2.7](https://img.shields.io/badge/python-2.6|2.7-yellow.svg)](https://www.python.org/)
+[![Python 2.6|2.7](https://img.shields.io/badge/python-2.6|2.7-yellow.svg)](https://www.python.org/) 
 
+**GitHub repositoriy:**
+
+    https://github.com/CaviarChen/InfoProject3
 
 Introduction
 ----
@@ -26,9 +29,13 @@ Then run it:
     
 Dataset
 ----
-Building information 2015:
+Based on 'Building information 2015':
 
     https://data.melbourne.vic.gov.au/Property-Planning/Building-information-2015/2r42-d7pj
+    
+Final version:
+    
+    /static/dataset.csv
     
 Packages&Libraries used
 ----
@@ -43,5 +50,4 @@ Web pages:
 
     Bootstrap3 [Flatly theme by http://bootswatch.com/]
     JQuery  
-    Favicon [http://paulferrett.com/fontawesome-favicon/]
-
+    Fontawesome [http://fontawesome.io/]

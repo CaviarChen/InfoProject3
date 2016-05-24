@@ -7,84 +7,47 @@
 {% endblock %}
 
 {% block body %}
-
-<h1>Hello, World!</h1>
-
 <div class="row">
-  <div class="col-lg-6">
-    <div class="input-group">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Go!</button>
-      </span>
-      <input type="text" class="form-control" placeholder="Search for...">
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-6 -->
-  <div class="col-lg-6">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search for...">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Go!</button>
-      </span>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-6 -->
-</div><!-- /.row -->
+  <div class="col-md-8 col-md-offset-2">
+
+    <h1><a id="InfoProject3_0"></a>InfoProject3</h1>
+    <p><a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-2.6%7C2.7-yellow.svg" alt="Python 2.6|2.7"></a></p>
+    <p><strong>GitHub repositoriy:</strong></p>
+    <pre><code>https://github.com/CaviarChen/InfoProject3</code></pre>
+    <h2><a id="Introduction_7"></a>Introduction</h2>
+    <p>An web application designed for presentating a dataset of building infomations of Melbourne. Made by Zijun Chen(Zed)&amp;Tianyi Feng(Oliver).</p>
+    <h2><a id="Usage_11"></a>Usage</h2>
+    <p>The root directory of this application is:</p>
+    <pre><code>./app/</code></pre>
+    <p>Check the configration in:</p>
+    <pre><code>config.json</code></pre>
+    <p>Installing all needed packages by using pip:</p>
+    <pre><code>pip install -r requirements.txt</code></pre>
+    <p>Then run it:</p>
+    <pre><code>python app.py</code></pre>
+    <h2><a id="Dataset_29"></a>Dataset</h2>
+    <p>Based on ‘Building information 2015’:</p>
+    <pre><code>https://data.melbourne.vic.gov.au/Property-Planning/Building-information-2015/2r42-d7pj</code></pre>
+    <p>Final version:</p>
+    <pre><code>/static/dataset.csv</code></pre>
+    <h2><a id="PackagesLibraries_used_39"></a>Packages&amp;Libraries used</h2>
+    <p>Python:</p>
+    <pre><code>Flask
+sqlite3
+struct
+json
+    </code></pre>
+    <p>Web pages:</p>
+    <pre><code>Bootstrap3 [Flatly theme by http://bootswatch.com/]
+JQuery
+Fontawesome [http://fontawesome.io/]
+    </code></pre>
+
+    <br>
+    <br>
 
 
-<div class="panel panel-default">
-  <div class="panel-body">
-    Basic panel example
   </div>
 </div>
-
-
-<ol class="breadcrumb">
-  <li><a href="#">Home</a></li>
-  <li><a href="#">Library</a></li>
-  <li class="active">Data</li>
-</ol>
-
-<div class="page-header">
-  <h1>Example page header <small>Subtext for header</small></h1>
-</div>
-
-<div class="progress">
-  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-    <span class="sr-only">60% Complete</span>
-  </div>
-</div>
-
-<a href="#">Inbox <span class="badge">42</span></a>
-
-<button class="btn btn-primary" type="button">
-  Messages <span class="badge">4</span>
-</button>
-
-<script src="http://code.highcharts.com/highcharts.js"></script>
-<div id="container" style="width:100%; height:400px;"></div>
-<script>$(function () {
-    $('#container').highcharts({
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: 'Fruit Consumption'
-        },
-        xAxis: {
-            categories: ['Apples', 'Bananas', 'Oranges']
-        },
-        yAxis: {
-            title: {
-                text: 'Fruit eaten'
-            }
-        },
-        series: [{
-            name: 'Jane',
-            data: [1, 0, 4]
-        }, {
-            name: 'John',
-            data: [5, 7, 3]
-        }]
-    });
-}); </script>
 
 {% endblock %}
