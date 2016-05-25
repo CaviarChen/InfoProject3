@@ -54,7 +54,13 @@ window.onhashchange = function(){
   waitingDialog.show('Loading');
   $('#table_c').text('');
 
-  args = JSON.parse(window.location.hash.slice(3));
+  try{
+      args = JSON.parse(window.location.hash.slice(3));
+  }catch(e){
+    var args = {};
+  }
+
+
   set_args(args);
 
   $.get('api/PivotTable', args)
