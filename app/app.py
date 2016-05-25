@@ -33,6 +33,10 @@ def close_connection(exception):
 def index():
     return render_template('index.html')
 
+@app.route('/data')
+def about():
+    return render_template('data.html')
+
 @app.route('/pivot')
 def pivot():
     return render_template('pivot.html')
@@ -41,14 +45,12 @@ def pivot():
 def observation():
     return render_template('observation.html')
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
 @app.route('/api/<method>')
 def api(method):
     if(method=='PivotTable'):
         return json.dumps(handler.PivotTable(request.args, get_db()))
+    if(method=='Data'):
+        return json.dumps(handler.Data(request.args, get_db()))
 
     abort(404)
     return ''

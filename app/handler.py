@@ -1,5 +1,6 @@
 import sqlite3
 import struct
+import math
 
 DBITEM = {0:"BID",
           1:"PID",
@@ -29,6 +30,36 @@ FILTER2_RANGE = range(0,6+1)
 ROW_COL_RANGE = (0,3,4,5,6,7,8,9,10,12,13,14)
 VALUE1_RANGE = range(0,3+1)
 VALUE2_RANGE = (6,7,8,12,13,14)
+
+    #-------------------------------------------------
+
+def Data(req_args, db):
+
+    ITEMS_ON_EACH_PAGE = 120
+
+    cur = db.cursor()
+    cur.execute('SELECT COUNT(*) FROM dataset')
+    total_pages = int(math.ceil(float(cur.fetchone()[0])/ITEMS_ON_EACH_PAGE))
+
+    try:
+        page = int(req_args['page'])
+    except:
+        page = -1
+
+    if not((page>=0)and(page<=total_pages)):
+        return {'code': -1, 'message': 'Wrong page', 'total_pages': total_pages}
+
+    fields = []
+    for line in cur.execute("SELECT name FROM dataset_fields ORDER BY id ASC"):
+        fields.append(line[0])
+
+    table = []
+    limit_base = str((page-1)*ITEMS_ON_EACH_PAGE)
+    for line in cur.execute("SELECT * FROM dataset ORDER BY BID ASC LIMIT {0},100".\
+                            format(limit_base, str(ITEMS_ON_EACH_PAGE))):
+        table.append(line)
+
+    return {'code': 1,'total_pages': total_pages, 'data':{'fields':fields, 'table':table}}
 
     #-------------------------------------------------
 

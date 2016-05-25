@@ -91,10 +91,11 @@ window.onhashchange = function(){
         txt += '</tr>'
       }
       txt += '</table></div></div></div>';
-
     }
-
     $('#table_c').append(txt);
+    waitingDialog.hide();
+  }).fail(function() {
+    $('#table_c').append('<div class="alert alert-danger" role="alert"> Network is unreachable </div>');
     waitingDialog.hide();
   });
 
