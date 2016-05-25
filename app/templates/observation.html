@@ -1,11 +1,70 @@
 {% extends "base.html" %}
-
 {% block title %}Observation{% endblock %}
-
-{% block head %}
-
-{% endblock %}
-
+{% block head %} {% endblock %}
 {% block body %}
+
+<div class="row">
+    <div class="page-header">
+        <h1>Observation</h1>
+    </div>
+
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4><span class="label label-default">Q1</span></h4> What is comparison of ìhigh level Accessibility ì building between old building and new building in different Predominant space use?
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                      <br>
+                      <br>
+<blockquote>
+    <p>As we all know, Melbourne is a immigrant city, the population of Melbourne is dramatically increase in the recent 20 years, so more and more apartments were built, so our hypotheses is compare to old building, more and more building have high level accessibility device. And the number of apartments is more than other type of buildings .</p>
+</blockquote>
+
+<a class="btn btn-default" href='pivot#q={"filter1":"-1","row":"6","col":"9","val1":"0","val2":"12"}' role="button">View Pivot Table</a>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                        <table id="datatable" style="display: none;">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>New building</th>
+                                    <th>Old building</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>Office</th>
+                                    <td>39</td>
+                                    <td>67</td>
+                                </tr>
+                                <tr>
+                                    <th>Residential Apartment</th>
+                                    <td>101</td>
+                                    <td>26</td>
+                                </tr>
+                                <tr>
+                                    <th>Others</th>
+                                    <td>73</td>
+                                    <td>63</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="static/js/ob.js"></script>
 
 {% endblock %}

@@ -19,7 +19,7 @@ function set_args(args) {
   $('#s-row option[value="'+args['row']+'"]').prop('selected', true);
   $('#s-col option[value="'+args['col']+'"]').prop('selected', true);
   $('#s-val-1 option[value="'+args['val1']+'"]').prop('selected', true);
-  $('#s-val-1 option[value="'+args['val2']+'"]').prop('selected', true);
+  $('#s-val-2 option[value="'+args['val2']+'"]').prop('selected', true);
 
   $("#s-filter-1").trigger("change");
 }
