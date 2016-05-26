@@ -73,7 +73,7 @@ window.onhashchange = function(){
     } else {
       txt = '<div class="panel panel-default"><div class="panel-heading">Table</div><div class="panel-body">';
 
-      txt += '<div class="table-responsive"><table class="table table-hover table-bordered">';
+      txt += '<div class="table-responsive"><table class="table table-hover table-bordered table-condensed">';
 
       txt += '<tr>'
       txt += '<td>#</td>'

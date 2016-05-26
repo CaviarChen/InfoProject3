@@ -45,9 +45,19 @@ Python:
     sqlite3
     struct
     json
+    math
     
 Web pages:
 
-    Bootstrap3 [Flatly theme by http://bootswatch.com/]
-    JQuery  
-    Fontawesome [http://fontawesome.io/]
+    Bootstrap3    [Flatly theme by http://bootswatch.com/]
+    JQuery    [https://jquery.com/]
+    Fontawesome    [http://fontawesome.io/]
+    bootstrap-waitingfor    [https://github.com/ehpc/bootstrap-waitingfor]
+    background-blur    [https://github.com/msurguy/background-blur]
+    buttons    [https://github.com/alexwolfe/Buttons/]
+
+Images:
+
+    melbourne    [https://pixabay.com/en/melbourne-night-cityscape-view-583935/]
+    melbourne2    [https://pixabay.com/en/melbourne-australia-skyline-77724/]
+    skyline    [https://pixabay.com/en/skyline-dusk-melbourne-cbd-1337971/]

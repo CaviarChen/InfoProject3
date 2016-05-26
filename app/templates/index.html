@@ -3,49 +3,44 @@
 {% block title %}Home Page{% endblock %}
 
 {% block head %}
+<style type="text/css">
+.hvcenter {
+  position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-40%);
+}
+
+.hcenter {
+  position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+}
+
+.bigtitle {
+color: #FFFFFF;
+font-size: 60px;
+text-shadow: 2px 2px 0 rgba(44,62,80,0.9),5px 5px 0 rgba(44,62,80,0.9);
+}
+</style>
+<link rel="stylesheet" href="static/css/buttons.css">
 
 {% endblock %}
 
 {% block body %}
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
 
-    <h1><a id="InfoProject3_0"></a>InfoProject3</h1>
-    <p><a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-2.6%7C2.7-yellow.svg" alt="Python 2.6|2.7"></a></p>
-    <p><strong>GitHub repository:</strong></p>
-    <pre><code>https://github.com/CaviarChen/InfoProject3</code></pre>
-    <h2><a id="Introduction_7"></a>Introduction</h2>
-    <p>An web application designed for presentating a dataset of building infomations of Melbourne. Made by Zijun Chen(Zed)&amp;Tianyi Feng(Oliver).</p>
-    <h2><a id="Usage_11"></a>Usage</h2>
-    <p>The root directory of this application is:</p>
-    <pre><code>./app/</code></pre>
-    <p>Check the configration in:</p>
-    <pre><code>config.json</code></pre>
-    <p>Installing all needed packages by using pip:</p>
-    <pre><code>pip install -r requirements.txt</code></pre>
-    <p>Then run it:</p>
-    <pre><code>python app.py</code></pre>
-    <h2><a id="Dataset_29"></a>Dataset</h2>
-    <p>Based on ‘Building information 2015’:</p>
-    <pre><code>https://data.melbourne.vic.gov.au/Property-Planning/Building-information-2015/2r42-d7pj</code></pre>
-    <p>Final version:</p>
-    <pre><code>/static/dataset.csv</code></pre>
-    <h2><a id="PackagesLibraries_used_39"></a>Packages&amp;Libraries used</h2>
-    <p>Python:</p>
-    <pre><code>Flask
-sqlite3
-struct
-json</code></pre>
-    <p>Web pages:</p>
-    <pre><code>Bootstrap3 [Flatly theme by http://bootswatch.com/]
-JQuery
-Fontawesome [http://fontawesome.io/]</code></pre>
+<div class="hvcenter">
+<div class="bigtitle">AAABBBCCC</div>
+<div class="hcenter">
+  <br><br><br><br>
 
-    <br>
-    <br>
+   <a href="data#1" class="button button-glow button-border button-rounded button-primary">Get Started</a>
 
-
-  </div>
+ </div>
 </div>
 
+
+
+<script src="static/js/jquery.backstretch.min.js"></script>
+<script src="static/js/bigimage.js"></script>
 {% endblock %}
