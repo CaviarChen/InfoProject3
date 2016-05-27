@@ -55,6 +55,7 @@ Web pages:
     bootstrap-waitingfor    [https://github.com/ehpc/bootstrap-waitingfor]
     background-blur    [https://github.com/msurguy/background-blur]
     buttons    [https://github.com/alexwolfe/Buttons/]
+    highcharts    [http://www.highcharts.com/]
 
 Images:
 
