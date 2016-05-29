@@ -2,6 +2,7 @@ import sqlite3
 import struct
 import math
 
+    #-----------------------CONSTANT----------------------
 DBITEM = {0:"BID",
           1:"PID",
           2:"BPID",
@@ -32,7 +33,7 @@ VALUE1_RANGE = range(0,3+1)
 VALUE2_RANGE = (6,7,8,12,13,14)
 
     #-------------------------------------------------
-
+#  Data Exporler API
 def Data(req_args, db):
 
     ITEMS_ON_EACH_PAGE = 120
@@ -62,7 +63,7 @@ def Data(req_args, db):
     return {'code': 1,'total_pages': total_pages, 'data':{'fields':fields, 'table':table}}
 
     #-------------------------------------------------
-
+#  PivotTable API
 def PivotTable(req_args, db):
     # check args
     res = ArgsCheck(req_args)
@@ -121,7 +122,7 @@ def PivotTable(req_args, db):
                 if table_min>table[i*len(rows)+j]:
                     table_min = table[i*len(rows)+j]
                 if table_max<table[i*len(rows)+j]:
-                    table_max = table[i*len(rows)+j]
+                    table_max = table[i*len(rows)+j]   # Get Min & Max value
 
     if table_max==table_min:
         table_max = table_min + 1
@@ -140,7 +141,7 @@ def PivotTable(req_args, db):
     return {"code":1,"data":{"rows":rows,"cols":cols,"table":table,"color":table_color}}
 
         #-------------------------------------------------
-
+#  check parameters for Pivottable API
 def ArgsCheck(args):
     global DBITEM, FILTER_OP, FILTER1_RANGE, FILTER2_RANGE, ROW_COL_RANGE, VALUE1_RANGE, VALUE2_RANGE
 
@@ -180,7 +181,7 @@ def ArgsCheck(args):
     return (sql_where, sql_par, row1, col1, val1, val2)
 
 
-
+#   Calculate value of each cell
 def CalculateTable(cur, val1, val2, sql_where, sql_par):
     values = []
     for line in cur.execute("SELECT "+val2+" FROM dataset "+sql_where, sql_par):
@@ -199,12 +200,13 @@ def CalculateTable(cur, val1, val2, sql_where, sql_par):
 
     return 0
 
+#   Calculate background color of each cell
 def HTMLColor(percentage):
     percentage = max([percentage,0])
     percentage = min([percentage,1])
 
-    (low_r, low_g, low_b) = (255, 255, 255)
-    (high_r, high_g, high_b) = (252, 248, 227)
+    (low_r, low_g, low_b) = (255, 255, 255)     # For lower value
+    (high_r, high_g, high_b) = (252, 248, 227)  # For higher value
 
     r = int(low_r + (high_r-low_r) * percentage)
     g = int(low_g + (high_g-low_g) * percentage)
